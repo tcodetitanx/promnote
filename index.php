@@ -24,7 +24,6 @@ $eviction_date = $_GET['eviction_date'] ?? '';
     <style>
         .preview {
             white-space: pre-line;
-            line-height: 1.6;
         }
         .signature-input {
             font-style: italic;
