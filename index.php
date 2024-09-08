@@ -38,7 +38,7 @@ $eviction_date = $_GET['eviction_date'] ?? '';
     <div class="container">
         <h1>Promissory Note Preview</h1>
         <div class="preview">
-This Promissory Note is issued on <?php echo $notice_date; ?>.
+This Promissory Note is issued on <strong><?php echo $notice_date; ?>.</strong>
 
 <strong>Issuer: <?php echo $issuer_name . "<br>"; ?></strong>
 Address: <?php echo $issuer_address. "<br>"; ?>
@@ -58,7 +58,7 @@ This amount includes:
 
 <?php if ($misc_fees_description): ?>Description of miscellaneous fees: <?php echo $misc_fees_description; ?><?php endif; ?>
 
-The total amount is due by <?php echo $eviction_date; ?>.
+<strong>The total amount is due by <?php echo $eviction_date; ?>.</strong>
 
 If not paid in full, the undersigned agrees to vacate immediately.
 
