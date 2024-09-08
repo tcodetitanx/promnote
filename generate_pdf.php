@@ -47,14 +47,27 @@ $misc_fees_description = $_GET['misc_fees_description'];
 $total = $_GET['total'];
 $notice_date = $_GET['notice_date'];
 $eviction_date = $_GET['eviction_date'];
+$signature = $_GET['signature'];
+$signatureDate = $_GET['signatureDate'];
 
 // Create the content
 $content = <<<EOD
 <h1>Promissory Note Agreement</h1>
 
-<p>This Promissory Note is issued on {$notice_date} by {$issuer_name}, residing at {$issuer_address} (Phone: {$issuer_phone}).</p>
+<p>This Promissory Note is issued on {$notice_date}.</p>
 
-<p>The undersigned, {$name}, residing at {$address} (Phone: {$phone}), agrees to pay a total of \${$total}, which includes the following amounts:</p>
+<p><strong>Issuer:</strong> {$issuer_name}<br>
+<strong>Address:</strong> {$issuer_address}<br>
+<strong>Phone:</strong> {$issuer_phone}</p>
+
+<p><strong>The undersigned:</strong><br>
+<strong>Name:</strong> {$name}<br>
+<strong>Address:</strong> {$address}<br>
+<strong>Phone:</strong> {$phone}</p>
+
+<p>Agrees to pay a total of \${$total}.</p>
+
+<p>This amount includes:</p>
 <ul>
     <li>Amount due: \${$amount_due}</li>
     <li>Late fees: \${$late_fees}</li>
@@ -67,14 +80,26 @@ if ($misc_fees_description) {
 }
 
 $content .= <<<EOD
-<p>The total amount is due by {$eviction_date}. If the amount is not paid in full, the undersigned agrees to vacate the premises immediately. Failure to comply with this agreement will result in legal action, as outlined in the eviction notice.</p>
+<p>The total amount is due by {$eviction_date}.</p>
 
-<p>Additionally, the undersigned understands that failure to pay or vacate will result in the landlord proceeding with a Summons and Complaint for unlawful detainer, which may result in eviction and liability for all amounts owed, including attorney fees, court costs, and other damages as allowed under applicable law.</p>
+<p>If not paid in full, the undersigned agrees to vacate immediately.</p>
+
+<p>Failure to comply will result in legal action.</p>
+
+<p>The undersigned understands that failure to pay or vacate will result in:</p>
+<ul>
+    <li>A Summons and Complaint for unlawful detainer</li>
+    <li>Possible eviction</li>
+    <li>Liability for all amounts owed</li>
+    <li>Attorney fees</li>
+    <li>Court costs</li>
+    <li>Other damages as allowed by law</li>
+</ul>
 
 <p>By signing below, the undersigned acknowledges the terms and agrees to pay the total amount of \${$total}.</p>
 
-<p>Signature: ____________________________</p>
-<p>Date: ________________________________</p>
+<p><strong>Signature:</strong> <em>{$signature}</em></p>
+<p><strong>Date:</strong> <em>{$signatureDate}</em></p>
 EOD;
 
 // Write the content
