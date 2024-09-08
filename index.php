@@ -40,16 +40,16 @@ $eviction_date = $_GET['eviction_date'] ?? '';
         <div class="preview">
 This Promissory Note is issued on <?php echo $notice_date; ?>.
 
-Issuer: <?php echo $issuer_name . "<br>"; ?>
+<strong>Issuer: <?php echo $issuer_name . "<br>"; ?></strong>
 Address: <?php echo $issuer_address. "<br>"; ?>
 Phone: <?php echo $issuer_phone . "<br>"; ?>
 
 The undersigned:
-Name: <?php echo $name . "<br>"; ?>
+<strong>Name: <?php echo $name . "<br>"; ?></strong>
 Address: <?php echo $address . "<br>"; ?>
 Phone: <?php echo $phone . "<br>"; ?>
 
-Agrees to pay a total of $<?php echo $total; ?>.
+<strong>Agrees to pay a total of $<?php echo $total; ?>.</strong>
 
 This amount includes:
 - Rent/Monies due: $<?php echo $amount_due . "<br>"; ?>
@@ -73,7 +73,7 @@ The undersigned understands that failure to pay or vacate will result in:
 - Other damages as allowed by law
 
 By signing below, the undersigned acknowledges the terms.
-They agree to pay the total amount of $<?php echo $total; ?>.
+They agree to pay the total amount of <strong>$<?php echo $total; ?>. </strong>
 
 Signature: <input type="text" id="signature" class="signature-input" placeholder="Type your full name to sign">
 Date: <input type="date" id="signatureDate" class="signature-input">
