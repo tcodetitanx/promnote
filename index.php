@@ -80,7 +80,6 @@ Date: <input type="date" id="signatureDate" class="signature-input">
         </div>
         <div class="buttons">
             <button onclick="generatePDF()" id="generatePdfBtn" disabled>Download PDF</button>
-            <button onclick="window.print();">Print</button>
         </div>
     </div>
 
