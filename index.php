@@ -40,21 +40,21 @@ $eviction_date = $_GET['eviction_date'] ?? '';
         <div class="preview">
 This Promissory Note is issued on <?php echo $notice_date; ?>.
 
-Issuer: <?php echo $issuer_name + "<br>"; ?>
-Address: <?php echo $issuer_address+ "<br>"; ?>
-Phone: <?php echo $issuer_phone + "<br>"; ?>
+Issuer: <?php echo $issuer_name . "<br>"; ?>
+Address: <?php echo $issuer_address. "<br>"; ?>
+Phone: <?php echo $issuer_phone . "<br>"; ?>
 
 The undersigned:
-Name: <?php echo $name + "<br>"; ?>
-Address: <?php echo $address + "<br>"; ?>
-Phone: <?php echo $phone + "<br>"; ?>
+Name: <?php echo $name . "<br>"; ?>
+Address: <?php echo $address . "<br>"; ?>
+Phone: <?php echo $phone . "<br>"; ?>
 
 Agrees to pay a total of $<?php echo $total; ?>.
 
 This amount includes:
-- Rent/Monies due: $<?php echo $amount_due + "<br>"; ?>
-- Late fees: $<?php echo $late_fees + "<br>"; ?>
-- Miscellaneous fees: $<?php echo $misc_fees + "<br>"; ?>
+- Rent/Monies due: $<?php echo $amount_due . "<br>"; ?>
+- Late fees: $<?php echo $late_fees . "<br>"; ?>
+- Miscellaneous fees: $<?php echo $misc_fees . "<br>"; ?>
 
 <?php if ($misc_fees_description): ?>Description of miscellaneous fees: <?php echo $misc_fees_description; ?><?php endif; ?>
 
