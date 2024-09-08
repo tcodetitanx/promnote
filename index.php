@@ -1,6 +1,7 @@
 <?php
 $issuer_name = $_GET['issuer_name'] ?? '';
 $issuer_address = $_GET['issuer_address'] ?? '';
+$issuer_phone = $_GET['issuer_phone'] ?? '';
 $name = $_GET['name'] ?? '';
 $address = $_GET['address'] ?? '';
 $phone = $_GET['phone'] ?? '';
@@ -25,9 +26,9 @@ $eviction_date = $_GET['eviction_date'] ?? '';
     <div class="container">
         <h1>Promissory Note Preview</h1>
         <div class="preview">
-This Promissory Note is issued on <?php echo $notice_date; ?> by <?php echo $issuer_name; ?>, residing at <?php echo $issuer_address; ?>.
+This Promissory Note is issued on <?php echo $notice_date; ?> by <?php echo $issuer_name; ?>, residing at <?php echo $issuer_address; ?> (Phone: <?php echo $issuer_phone; ?>).
 
-The undersigned, <?php echo $name; ?>, residing at <?php echo $address; ?>, agrees to pay a total of $<?php echo $total; ?>, which includes the following amounts:
+The undersigned, <?php echo $name; ?>, residing at <?php echo $address; ?> (Phone: <?php echo $phone; ?>), agrees to pay a total of $<?php echo $total; ?>, which includes the following amounts:
 - Amount due: $<?php echo $amount_due; ?>
 - Late fees: $<?php echo $late_fees; ?>
 - Miscellaneous fees: $<?php echo $misc_fees; ?>

@@ -36,6 +36,7 @@ $pdf->SetFont('helvetica', '', 12);
 // Get data from GET parameters
 $issuer_name = $_GET['issuer_name'];
 $issuer_address = $_GET['issuer_address'];
+$issuer_phone = $_GET['issuer_phone'];
 $name = $_GET['name'];
 $address = $_GET['address'];
 $phone = $_GET['phone'];
@@ -51,9 +52,9 @@ $eviction_date = $_GET['eviction_date'];
 $content = <<<EOD
 <h1>Promissory Note Agreement</h1>
 
-<p>This Promissory Note is issued on {$notice_date} by {$issuer_name}, residing at {$issuer_address}.</p>
+<p>This Promissory Note is issued on {$notice_date} by {$issuer_name}, residing at {$issuer_address} (Phone: {$issuer_phone}).</p>
 
-<p>The undersigned, {$name}, residing at {$address}, agrees to pay a total of \${$total}, which includes the following amounts:</p>
+<p>The undersigned, {$name}, residing at {$address} (Phone: {$phone}), agrees to pay a total of \${$total}, which includes the following amounts:</p>
 <ul>
     <li>Amount due: \${$amount_due}</li>
     <li>Late fees: \${$late_fees}</li>
@@ -74,4 +75,15 @@ $content .= <<<EOD
 
 <p>Signature: ____________________________</p>
 <p>Date: ________________________________</p>
-EOD
+EOD;
+
+// Write the content
+$pdf->writeHTML($content, true, false, true, false, '');
+
+// Add footer with legal verbiage
+$pdf->SetY(-15);
+$pdf->SetFont('helvetica', '', 8);
+$pdf->MultiCell(0, 10, 'Copyright 2010-2020. This form verbiage provided by the Law Offices of Jeremy M. Shorts, LLC and may be used by landlords within the state of Utah. Use of this form shall not constitute legal representation by this firm. Visit www.utahevictionlaw.com for more landlord forms and materials. Phone: 801 - 610 - 9879. Rev 5/12/2020', 0, 'C');
+
+// Output the PDF
+$pdf->Output('promissory_note.pdf', 'I');

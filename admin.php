@@ -11,37 +11,40 @@
         <h1>Generate Promissory Note URL</h1>
         <form id="form">
             <label for="issuer_name">Issuer Name:</label>
-            <input type="text" id="issuer_name" required>
+            <input type="text" id="issuer_name" name="issuer_name" required>
 
             <label for="issuer_address">Issuer Address:</label>
-            <input type="text" id="issuer_address" required>
+            <input type="text" id="issuer_address" name="issuer_address" required>
+
+            <label for="issuer_phone">Issuer Phone:</label>
+            <input type="text" id="issuer_phone" name="issuer_phone" required>
 
             <label for="name">Recipient Name:</label>
-            <input type="text" id="name" required>
+            <input type="text" id="name" name="name" required>
 
             <label for="address">Recipient Address:</label>
-            <input type="text" id="address" required>
+            <input type="text" id="address" name="address" required>
 
             <label for="phone">Recipient Phone:</label>
-            <input type="text" id="phone" required>
+            <input type="text" id="phone" name="phone" required>
 
             <label for="amount_due">Amount Due:</label>
-            <input type="number" id="amount_due" required>
+            <input type="number" id="amount_due" name="amount_due" required>
 
             <label for="late_fees">Late Fees:</label>
-            <input type="number" id="late_fees" required>
+            <input type="number" id="late_fees" name="late_fees" required>
 
             <label for="misc_fees">Miscellaneous Fees:</label>
-            <input type="number" id="misc_fees" required>
+            <input type="number" id="misc_fees" name="misc_fees" required>
 
             <label for="misc_fees_description">Misc Fees Description:</label>
-            <textarea id="misc_fees_description"></textarea>
+            <textarea id="misc_fees_description" name="misc_fees_description"></textarea>
 
             <label for="notice_date">Date of Notice:</label>
-            <input type="date" id="notice_date" required>
+            <input type="date" id="notice_date" name="notice_date" required>
 
             <label for="eviction_date">Date of Eviction:</label>
-            <input type="date" id="eviction_date" required>
+            <input type="date" id="eviction_date" name="eviction_date" required>
 
             <button type="button" onclick="generateUrl()">Generate URL</button>
         </form>
