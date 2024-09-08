@@ -1,6 +1,16 @@
 <?php
-// Capture the current date
-$current_date = date("F j, Y");
+$issuer_name = $_GET['issuer_name'] ?? '';
+$issuer_address = $_GET['issuer_address'] ?? '';
+$name = $_GET['name'] ?? '';
+$address = $_GET['address'] ?? '';
+$phone = $_GET['phone'] ?? '';
+$amount_due = $_GET['amount_due'] ?? '';
+$late_fees = $_GET['late_fees'] ?? '';
+$misc_fees = $_GET['misc_fees'] ?? '';
+$misc_fees_description = $_GET['misc_fees_description'] ?? '';
+$total = $_GET['total'] ?? '';
+$notice_date = $_GET['notice_date'] ?? '';
+$eviction_date = $_GET['eviction_date'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -8,58 +18,34 @@ $current_date = date("F j, Y");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promissory Note Agreement</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        label { display: block; margin-bottom: 10px; }
-        input[type="checkbox"], input[type="text"] { margin-bottom: 20px; }
-        button { padding: 10px 15px; font-size: 16px; }
-    </style>
+    <title>Promissory Note Preview</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Promissory Note Agreement</h1>
-    <p>Please review the terms below. By checking the box and signing your name, you agree to pay the amounts due as outlined in the promissory note.</p>
-    <form action="generate_pdf.php" method="GET" id="promissory-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+    <div class="container">
+        <h1>Promissory Note Preview</h1>
+        <div class="preview">
+This Promissory Note is issued on <?php echo $notice_date; ?> by <?php echo $issuer_name; ?>, residing at <?php echo $issuer_address; ?>.
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
+The undersigned, <?php echo $name; ?>, residing at <?php echo $address; ?>, agrees to pay a total of $<?php echo $total; ?>, which includes the following amounts:
+- Amount due: $<?php echo $amount_due; ?>
+- Late fees: $<?php echo $late_fees; ?>
+- Miscellaneous fees: $<?php echo $misc_fees; ?>
+<?php if ($misc_fees_description): ?>  Description: <?php echo $misc_fees_description; ?><?php endif; ?>
 
-        <label for="amount_due">Amount Due:</label>
-        <input type="number" id="amount_due" name="amount_due" required>
+The total amount is due by <?php echo $eviction_date; ?>. If the amount is not paid in full, the undersigned agrees to vacate the premises immediately. Failure to comply with this agreement will result in legal action, as outlined in the eviction notice.
 
-        <label for="late_fees">Late Fees:</label>
-        <input type="number" id="late_fees" name="late_fees" required>
+Additionally, the undersigned understands that failure to pay or vacate will result in the landlord proceeding with a Summons and Complaint for unlawful detainer, which may result in eviction and liability for all amounts owed, including attorney fees, court costs, and other damages as allowed under applicable law.
 
-        <label for="misc_fees">Miscellaneous Fees:</label>
-        <input type="number" id="misc_fees" name="misc_fees" required>
+By signing below, the undersigned acknowledges the terms and agrees to pay the total amount of $<?php echo $total; ?>.
 
-        <label for="signature">Signature:</label>
-        <input type="text" id="signature" name="signature" required placeholder="Sign your name here">
-
-        <label>
-            <input type="checkbox" id="agree" name="agree" required>
-            I agree to pay the amounts due and understand the terms of this promissory note.
-        </label>
-
-        <input type="hidden" name="date" value="<?php echo $current_date; ?>">
-
-        <button type="submit" id="submit-btn">Generate PDF</button>
-    </form>
-
-    <script>
-        // JavaScript to ensure that the box is checked and the name is signed
-        document.getElementById('promissory-form').addEventListener('submit', function(event) {
-            if (!document.getElementById('agree').checked) {
-                alert('You must agree to the terms to download the PDF.');
-                event.preventDefault();
-            }
-            if (document.getElementById('signature').value.trim() === "") {
-                alert('You must sign the promissory note.');
-                event.preventDefault();
-            }
-        });
-    </script>
+Signature: ____________________________
+Date: ________________________________
+        </div>
+        <div class="buttons">
+            <a href="generate_pdf.php?<?php echo $_SERVER['QUERY_STRING']; ?>" target="_blank">Download PDF</a>
+            <a href="#" onclick="window.print();">Print</a>
+        </div>
+    </div>
 </body>
 </html>

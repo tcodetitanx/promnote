@@ -1,55 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Promissory Note URL</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        input, button { padding: 10px; margin: 5px; }
-        .container { max-width: 600px; margin: 0 auto; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Generate Promissory Note URL</h1>
         <form id="form">
-            <label>Name:</label><br>
-            <input type="text" id="name" required><br>
+            <label for="issuer_name">Issuer Name:</label>
+            <input type="text" id="issuer_name" required>
 
-            <label>Address:</label><br>
-            <input type="text" id="address" required><br>
+            <label for="issuer_address">Issuer Address:</label>
+            <input type="text" id="issuer_address" required>
 
-            <label>Phone:</label><br>
-            <input type="text" id="phone" required><br>
+            <label for="name">Recipient Name:</label>
+            <input type="text" id="name" required>
 
-            <label>Amount Due:</label><br>
-            <input type="number" id="amount_due" required><br>
+            <label for="address">Recipient Address:</label>
+            <input type="text" id="address" required>
 
-            <label>Late Fees:</label><br>
-            <input type="number" id="late_fees" required><br>
+            <label for="phone">Recipient Phone:</label>
+            <input type="text" id="phone" required>
 
-            <label>Miscellaneous Fees:</label><br>
-            <input type="number" id="misc_fees" required><br>
+            <label for="amount_due">Amount Due:</label>
+            <input type="number" id="amount_due" required>
 
-            <label>Total:</label><br>
-            <input type="number" id="total" required><br>
+            <label for="late_fees">Late Fees:</label>
+            <input type="number" id="late_fees" required>
+
+            <label for="misc_fees">Miscellaneous Fees:</label>
+            <input type="number" id="misc_fees" required>
+
+            <label for="misc_fees_description">Misc Fees Description:</label>
+            <textarea id="misc_fees_description"></textarea>
+
+            <label for="notice_date">Date of Notice:</label>
+            <input type="date" id="notice_date" required>
+
+            <label for="eviction_date">Date of Eviction:</label>
+            <input type="date" id="eviction_date" required>
 
             <button type="button" onclick="generateUrl()">Generate URL</button>
         </form>
 
-        <div id="generatedUrl" style="margin-top: 20px;"></div>
+        <div id="generatedUrl"></div>
     </div>
 
     <script>
         function generateUrl() {
-            const name = document.getElementById('name').value;
-            const address = document.getElementById('address').value;
-            const phone = document.getElementById('phone').value;
-            const amount_due = document.getElementById('amount_due').value;
-            const late_fees = document.getElementById('late_fees').value;
-            const misc_fees = document.getElementById('misc_fees').value;
-            const total = document.getElementById('total').value;
+            const form = document.getElementById('form');
+            const formData = new FormData(form);
+            const params = new URLSearchParams(formData);
+            
+            // Calculate total
+            const amountDue = parseFloat(formData.get('amount_due')) || 0;
+            const lateFees = parseFloat(formData.get('late_fees')) || 0;
+            const miscFees = parseFloat(formData.get('misc_fees')) || 0;
+            const total = amountDue + lateFees + miscFees;
+            
+            params.append('total', total.toFixed(2));
 
-            const url = `https://goaxiomrealty.com/tools/promnote/?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}&phone=${encodeURIComponent(phone)}&amount_due=${encodeURIComponent(amount_due)}&late_fees=${encodeURIComponent(late_fees)}&misc_fees=${encodeURIComponent(misc_fees)}&total=${encodeURIComponent(total)}`;
+            const url = `https://goaxiomrealty.com/tools/promnote/?${params.toString()}`;
             
             document.getElementById('generatedUrl').innerHTML = `<p>Generated URL: <a href="${url}" target="_blank">${url}</a></p>`;
         }

@@ -1,50 +1,77 @@
 <?php
-// Include the TCPDF library
-require_once('tcpdf/tcpdf.php');
-
-// Get the GET variables from the form submission
-$name = isset($_GET['name']) ? $_GET['name'] : 'N/A';
-$address = isset($_GET['address']) ? $_GET['address'] : 'N/A';
-$amount_due = isset($_GET['amount_due']) ? $_GET['amount_due'] : '0';
-$late_fees = isset($_GET['late_fees']) ? $_GET['late_fees'] : '0';
-$misc_fees = isset($_GET['misc_fees']) ? $_GET['misc_fees'] : '0';
-$total = $amount_due + $late_fees + $misc_fees;
-$signature = isset($_GET['signature']) ? $_GET['signature'] : 'N/A';
-$current_date = isset($_GET['date']) ? $_GET['date'] : date("F j, Y");
+require_once('../invoice/tcpdf/tcpdf.php');
 
 // Create new PDF document
-$pdf = new TCPDF();
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+// Set document information
+$pdf->SetCreator(PDF_CREATOR);
+$pdf->SetAuthor('Your Company Name');
+$pdf->SetTitle('Promissory Note');
+$pdf->SetSubject('Promissory Note Agreement');
+$pdf->SetKeywords('Promissory Note, Agreement, Legal Document');
+
+// Remove default header/footer
+$pdf->setPrintHeader(false);
+$pdf->setPrintFooter(false);
+
+// Set default monospaced font
+$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+// Set margins
+$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+// Set auto page breaks
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+// Set image scale factor
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+// Add a page
 $pdf->AddPage();
+
+// Set font
 $pdf->SetFont('helvetica', '', 12);
 
-// Add title
-$pdf->Cell(0, 10, 'Promissory Note', 0, 1, 'C');
-$pdf->Ln(10);
+// Get data from GET parameters
+$issuer_name = $_GET['issuer_name'];
+$issuer_address = $_GET['issuer_address'];
+$name = $_GET['name'];
+$address = $_GET['address'];
+$phone = $_GET['phone'];
+$amount_due = $_GET['amount_due'];
+$late_fees = $_GET['late_fees'];
+$misc_fees = $_GET['misc_fees'];
+$misc_fees_description = $_GET['misc_fees_description'];
+$total = $_GET['total'];
+$notice_date = $_GET['notice_date'];
+$eviction_date = $_GET['eviction_date'];
 
-// Add promissory note content with eviction notice verbiage
-$content = "
-This Promissory Note is issued on $current_date by $name, residing at $address.
+// Create the content
+$content = <<<EOD
+<h1>Promissory Note Agreement</h1>
 
-The undersigned agrees to pay a total of \$$total, which includes the following amounts:
-- Rent owed: \$$amount_due
-- Late fees: \$$late_fees
-- Miscellaneous fees: \$$misc_fees
+<p>This Promissory Note is issued on {$notice_date} by {$issuer_name}, residing at {$issuer_address}.</p>
 
-The total amount is due within three (3) business days. If the amount is not paid in full, the undersigned agrees to vacate the premises immediately. Failure to comply with this agreement will result in legal action, as outlined in the eviction notice.
+<p>The undersigned, {$name}, residing at {$address}, agrees to pay a total of \${$total}, which includes the following amounts:</p>
+<ul>
+    <li>Amount due: \${$amount_due}</li>
+    <li>Late fees: \${$late_fees}</li>
+    <li>Miscellaneous fees: \${$misc_fees}</li>
+</ul>
+EOD;
 
-Additionally, the undersigned understands that failure to pay or vacate will result in the landlord proceeding with a Summons and Complaint for unlawful detainer, which may result in eviction and liability for all amounts owed, including attorney fees, court costs, and other damages as allowed under Utah law.
+if ($misc_fees_description) {
+    $content .= "<p>Description of miscellaneous fees: {$misc_fees_description}</p>";
+}
 
-By signing below, the undersigned acknowledges the terms and agrees to pay the total amount of \$$total.
-";
+$content .= <<<EOD
+<p>The total amount is due by {$eviction_date}. If the amount is not paid in full, the undersigned agrees to vacate the premises immediately. Failure to comply with this agreement will result in legal action, as outlined in the eviction notice.</p>
 
-// Add the content to the PDF
-$pdf->Write(0, $content);
+<p>Additionally, the undersigned understands that failure to pay or vacate will result in the landlord proceeding with a Summons and Complaint for unlawful detainer, which may result in eviction and liability for all amounts owed, including attorney fees, court costs, and other damages as allowed under applicable law.</p>
 
-// Add signature and date
-$pdf->Ln(10);
-$pdf->Cell(0, 10, "Signature: $signature", 0, 1);
-$pdf->Cell(0, 10, "Date: $current_date", 0, 1);
+<p>By signing below, the undersigned acknowledges the terms and agrees to pay the total amount of \${$total}.</p>
 
-// Output the PDF
-$pdf->Output('promissory_note.pdf', 'D');
-?>
+<p>Signature: ____________________________</p>
+<p>Date: ________________________________</p>
+EOD
