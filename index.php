@@ -38,8 +38,6 @@ $eviction_date = $_GET['eviction_date'] ?? '';
     <div class="container">
         <h1>Eviction Notice and Promissory Note </h1>
         <div class="preview">
-
-
 <h2>Notice of Eviction - Notice to Pay or Quit</h2>
 
 This Notice is Given to Tenant:
