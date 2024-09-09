@@ -7,9 +7,9 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 // Set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Your Company Name');
-$pdf->SetTitle('Promissory Note');
-$pdf->SetSubject('Promissory Note Agreement');
-$pdf->SetKeywords('Promissory Note, Agreement, Legal Document');
+$pdf->SetTitle('Promissory Note and Eviction Notice');
+$pdf->SetSubject('Promissory Note and Eviction Notice Agreement');
+$pdf->SetKeywords('Promissory Note, Eviction Notice, Agreement, Legal Document');
 
 // Remove default header/footer
 $pdf->setPrintHeader(false);
@@ -52,7 +52,9 @@ $signatureDate = $_GET['signatureDate'];
 
 // Create the content
 $content = <<<EOD
-<h1>Promissory Note Agreement</h1>
+<h1>Promissory Note and Eviction Notice</h1>
+
+<h2>Promissory Note</h2>
 
 <p>This Promissory Note is issued on {$notice_date}.</p>
 
@@ -100,6 +102,38 @@ $content .= <<<EOD
 
 <p><strong>Signature:</strong> <em>{$signature}</em></p>
 <p><strong>Date:</strong> <em>{$signatureDate}</em></p>
+
+<h2>Notice of Eviction - Notice to Pay or Quit</h2>
+
+<p><strong>This Notice is Given to Tenant:</strong><br>
+Name: {$name}<br>
+Address: {$address}<br>
+Phone: {$phone}</p>
+
+<p><strong>This Notice is Given by Landlord:</strong><br>
+Name: {$issuer_name}<br>
+Address: {$issuer_address}<br>
+Phone: {$issuer_phone}</p>
+
+<p>You are hereby given notice that you are behind on your rent or other amounts due. You are required to either pay everything owed or vacate the premises.</p>
+
+<p>Within three (3) business days (or the appropriate cure period as stated in the lease) you are required to:</p>
+
+<p>1. Pay the following:</p>
+<ul>
+    <li>Rent due: \${$amount_due}</li>
+    <li>Late fees: \${$late_fees}</li>
+    <li>Miscellaneous fees: \${$misc_fees}</li>
+    <li><strong>Total: \${$total}</strong></li>
+</ul>
+
+<p>OR</p>
+
+<p>2. All occupants must vacate the premises.</p>
+
+<p>If you do not comply with this notice, you will be served with a Summons and Complaint for unlawful detainer. Unlawful detainer is when you remain in possession of rental property after the owner serves you with a lawful notice to leave, such as this eviction notice. If you are found by the court to be in unlawful detainer, you will be evicted and found liable for all amounts owed under the lease and/or Utah law, plus attorney fees, court costs, and three times those damages allowed to be trebled under Utah Code Ann. §78B-6-811.</p>
+
+<p>If your lease requires mediation, you must alert us in writing within three days of your willingness to participate in mediation. Mediation shall take place within seven days of receipt of your written notification. If you fail to provide this written notification within three days and/or you fail to participate in mediation within seven days, be advised that your landlord intends to proceed with legal or equitable relief.</p>
 EOD;
 
 // Write the content
@@ -108,7 +142,7 @@ $pdf->writeHTML($content, true, false, true, false, '');
 // Add footer with legal verbiage
 $pdf->SetY(-15);
 $pdf->SetFont('helvetica', '', 8);
-$pdf->MultiCell(0, 10, 'Copyright 2010-2020. This form verbiage provided by the Law Offices of Jeremy M. Shorts, LLC and may be used by landlords within the state of Utah. Use of this form shall not constitute legal representation by this firm. Visit www.utahevictionlaw.com for more landlord forms and materials. Phone: 801 - 610 - 9879. Rev 5/12/2020', 0, 'C');
+$pdf->MultiCell(0, 10, 'Copyright 2010-2020. This form verbiage provided by the Law Offices of Jeremy M. Shorts, LLC and may be used by landlords within the state of Utah. Use of this form shall not constitute legal representation by this firm. Visit www.utahevictionlaw.com for more landlord forms and materials. Phone: 801-610-9879. Rev 5/12/2020', 0, 'C');
 
 // Output the PDF
-$pdf->Output('promissory_note.pdf', 'I');
+$pdf->Output('promissory_note_and_eviction_notice.pdf', 'I');
