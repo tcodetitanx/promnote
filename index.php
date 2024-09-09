@@ -105,7 +105,7 @@ The undersigned understands that failure to pay or vacate will result in:
 - Court costs
 - Other damages as allowed by law
 
-By signing below, the undersigned acknowledges the terms.
+By signing below, the undersigned acknowledges they were served with an eviction notice digitally<br> and accepts the terms outlined in the promissory note.<br>
 They agree to pay the total amount of <strong>$<?php echo $total; ?>. </strong>
 
 Signature: <input type="text" id="signature" class="signature-input" placeholder="Type your full name to sign">
