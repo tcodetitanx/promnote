@@ -5,17 +5,17 @@ $issuer_phone = $_GET['issuer_phone'] ?? '';
 $name = $_GET['name'] ?? '';
 $streetAddress = $_GET['address'] ?? '';
 $phone = $_GET['phone'] ?? '';
-
-$notice_date = $_GET['eviction_date'] ?? '';
-
+$eviction_date = $_GET['eviction_date'] ?? '';
 $leaseDate = $_GET['lease_date'] ?? '';
 $city = $_GET['city'] ?? '';
 $state = $_GET['state'] ?? '';
 $zip = $_GET['zip'] ?? '';
-
 $means_of_service = $_GET['means_of_service'] ?? '';
+$landlord_first_name = $_GET['landlord_first_name'] ?? '';
+$landlord_second_name = $_GET['landlord_second_name'] ?? '';
 
-$completeAddress = $streetAddress . " , " . $city . " , " . $state . " , " . $zip ;
+$completeAddress = $streetAddress . ", " . $city . ", " . $state . ", " . $zip;
+$signature = "<em>" . $landlord_first_name . " " . $landlord_second_name . "</em>";
 ?>
 
 <!DOCTYPE html>
@@ -29,11 +29,8 @@ $completeAddress = $streetAddress . " , " . $city . " , " . $state . " , " . $zi
         .preview {
             white-space: pre-line;
         }
-        .signature-input {
+        .signature {
             font-style: italic;
-            border: none;
-            border-bottom: 1px solid #000;
-            width: 100%;
             margin-bottom: 10px;
         }
         .landlord-info {
@@ -48,60 +45,41 @@ $completeAddress = $streetAddress . " , " . $city . " , " . $state . " , " . $zi
         <div class="preview">
 <h2>Eviction Notice</h2>
 
-<?php echo $notice_date; ?>
+<?php echo $eviction_date; ?>
 Name: <?php echo $name . "<br>"; ?>
 
 Phone: <?php echo $phone . "<br>"; ?><br>
-TO THE TENANT(S) AND ANY AND ALL OTHERS IN POSSESSION OF THE PREMISES LOCATED AT TEH AFORMENTIONED ADDRESS, THIS NOTICE HAS BEEN SENT TO YOU PURSUANT TO UTAH STATE LAWS AS A RESULT OF YOUR BREACH OF THE LEASE AND/OR YOUR FAILURE TO PAY RENT, LATE FEES AND/OR OTHER ASSOCIATED COSTS ANDOR FEES.
-<strong><em>BE IT KNOWN</em></strong> that purusant to your signed Lease Agreement dated <?php echo $leaseDate; ?> and where you are in possession of the premises located at <?php echo $streetAddress . " , " . $city . " , " . $state . " , " . $zip . "<br>"; ?>
+TO THE TENANT(S) AND ANY AND ALL OTHERS IN POSSESSION OF THE PREMISES LOCATED AT THE AFOREMENTIONED ADDRESS, THIS NOTICE HAS BEEN SENT TO YOU PURSUANT TO UTAH STATE LAWS AS A RESULT OF YOUR BREACH OF THE LEASE AND/OR YOUR FAILURE TO PAY RENT, LATE FEES AND/OR OTHER ASSOCIATED COSTS AND/OR FEES.
+<strong><em>BE IT KNOWN</em></strong> that pursuant to your signed Lease Agreement dated <?php echo $leaseDate; ?> and where you are in possession of the premises located at <?php echo $completeAddress . "<br>"; ?>
 
-THE LANDLORD RESERVES THE RIGHTS AND REMEDIES AFFORDED TO THEM PURUSANT TO THE SIGNED LEASE/RENTAL AGREEMENT AND IN ACCORDANCE WITH APPLICABLE LAWS OF THE STATE OF UTAH INCLUDING, BUT NOT LIMITED TO, UNPIAD RENT AND/OR PROPERTY DAMAGES, AND NOTHING IN THIS MNOTICE MAY BE INTERPRETED AS A RELINQUISHMENT OF SUCH RIGHTS AND REMEDIES
+THE LANDLORD RESERVES THE RIGHTS AND REMEDIES AFFORDED TO THEM PURSUANT TO THE SIGNED LEASE/RENTAL AGREEMENT AND IN ACCORDANCE WITH APPLICABLE LAWS OF THE STATE OF UTAH INCLUDING, BUT NOT LIMITED TO, UNPAID RENT AND/OR PROPERTY DAMAGES, AND NOTHING IN THIS NOTICE MAY BE INTERPRETED AS A RELINQUISHMENT OF SUCH RIGHTS AND REMEDIES
 
-By: 
+By: <?php echo $signature; ?>
 
-Date:
+Date: <?php echo $eviction_date; ?>
 
+<?php echo $issuer_address; ?>
+<?php echo $issuer_phone; ?>
 
-CERTIFICATE OF SERVICE
-<strong><em>BE IT KNOWN</em></strong> that i, <?php echo $issuer_name; ?>, hereby certify that on the date of <?php echo $notice_date ?> , I served copies of the Eviction Notice on <?php echo $completeAddress; ?> by way of <?php echo $means_of_service . "." ?><br>
+<h2>CERTIFICATE OF SERVICE</h2>
 
-Signature: <input type="text" id="signature" class="signature-input" placeholder="Type your full name to sign">
-Date: <input type="date" id="signatureDate" class="signature-input">
+<strong><em>BE IT KNOWN</em></strong> that I, <?php echo $issuer_name; ?>, hereby certify that on the date of <?php echo $eviction_date ?>, I served copies of the Eviction Notice on <?php echo $completeAddress; ?> by way of <?php echo $means_of_service . "." ?><br>
 
-<div class="landlord-info">
-Landlord Name: <?php echo $issuer_name; ?>
+Signature: <?php echo $signature; ?>
+Date: <?php echo $eviction_date; ?>
 
-Landlord Address: <?php echo $issuer_address; ?>
-
-Landlord Phone: <?php echo $issuer_phone; ?>
-</div>
+<?php echo $issuer_address; ?>
+<?php echo $issuer_phone; ?>
 
         </div>
         <div class="buttons">
-            <button onclick="generatePDF()" id="generatePdfBtn" disabled>Download PDF</button>
+            <button onclick="generatePDF()">Download PDF</button>
         </div>
     </div>
 
     <script>
-        const signatureInput = document.getElementById('signature');
-        const signatureDateInput = document.getElementById('signatureDate');
-        const generatePdfBtn = document.getElementById('generatePdfBtn');
-
-        function checkFields() {
-            if (signatureInput.value.trim() !== '' && signatureDateInput.value !== '') {
-                generatePdfBtn.disabled = false;
-            } else {
-                generatePdfBtn.disabled = true;
-            }
-        }
-
-        signatureInput.addEventListener('input', checkFields);
-        signatureDateInput.addEventListener('input', checkFields);
-
         function generatePDF() {
-            const signature = encodeURIComponent(signatureInput.value);
-            const signatureDate = encodeURIComponent(signatureDateInput.value);
-            const url = `generate_pdf_eviction.php?<?php echo $_SERVER['QUERY_STRING']; ?>&signature=${signature}&signatureDate=${signatureDate}`;
+            const url = `generate_pdf_eviction.php?<?php echo $_SERVER['QUERY_STRING']; ?>`;
             window.open(url, '_blank');
         }
     </script>

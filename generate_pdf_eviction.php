@@ -40,16 +40,17 @@ $issuer_phone = $_GET['issuer_phone'] ?? '';
 $name = $_GET['name'] ?? '';
 $streetAddress = $_GET['address'] ?? '';
 $phone = $_GET['phone'] ?? '';
-$notice_date = $_GET['notice_date'] ?? '';
+$eviction_date = $_GET['eviction_date'] ?? '';
 $leaseDate = $_GET['lease_date'] ?? '';
 $city = $_GET['city'] ?? '';
 $state = $_GET['state'] ?? '';
 $zip = $_GET['zip'] ?? '';
 $means_of_service = $_GET['means_of_service'] ?? '';
-$signature = $_GET['signature'] ?? '';
-$signatureDate = $_GET['signatureDate'] ?? '';
+$landlord_first_name = $_GET['landlord_first_name'] ?? '';
+$landlord_second_name = $_GET['landlord_second_name'] ?? '';
 
-$completeAddress = $streetAddress . " , " . $city . " , " . $state . " , " . $zip;
+$completeAddress = $streetAddress . ", " . $city . ", " . $state . ", " . $zip;
+$signature = "<em>" . $landlord_first_name . " " . $landlord_second_name . "</em>";
 
 // Create the content
 $content = <<<EOD
@@ -57,7 +58,7 @@ $content = <<<EOD
 
 <h2>Eviction Notice</h2>
 
-<p>{$notice_date}</p>
+<p>{$eviction_date}</p>
 <p><strong>Name:</strong> {$name}</p>
 <p><strong>Phone:</strong> {$phone}</p>
 
@@ -67,19 +68,18 @@ $content = <<<EOD
 
 <p>THE LANDLORD RESERVES THE RIGHTS AND REMEDIES AFFORDED TO THEM PURSUANT TO THE SIGNED LEASE/RENTAL AGREEMENT AND IN ACCORDANCE WITH APPLICABLE LAWS OF THE STATE OF UTAH INCLUDING, BUT NOT LIMITED TO, UNPAID RENT AND/OR PROPERTY DAMAGES, AND NOTHING IN THIS NOTICE MAY BE INTERPRETED AS A RELINQUISHMENT OF SUCH RIGHTS AND REMEDIES</p>
 
-<p>By: </p>
-
-<p>Date: </p>
+<p>By: {$signature}</p>
+<p>Date: {$eviction_date}</p>
+<p>{$issuer_address}</p>
+<p>{$issuer_phone}</p>
 
 <h3>CERTIFICATE OF SERVICE</h3>
-<p><strong><em>BE IT KNOWN</em></strong> that I, {$issuer_name}, hereby certify that on the date of {$notice_date}, I served copies of the Eviction Notice on {$completeAddress} by way of {$means_of_service}.</p>
+<p><strong><em>BE IT KNOWN</em></strong> that I, {$issuer_name}, hereby certify that on the date of {$eviction_date}, I served copies of the Eviction Notice on {$completeAddress} by way of {$means_of_service}.</p>
 
-<p><strong>Signature:</strong> <em>{$signature}</em></p>
-<p><strong>Date:</strong> <em>{$signatureDate}</em></p>
-
-<p><strong>Landlord Name:</strong> {$issuer_name}</p>
-<p><strong>Landlord Address:</strong> {$issuer_address}</p>
-<p><strong>Landlord Phone:</strong> {$issuer_phone}</p>
+<p><strong>Signature:</strong> {$signature}</p>
+<p><strong>Date:</strong> {$eviction_date}</p>
+<p>{$issuer_address}</p>
+<p>{$issuer_phone}</p>
 EOD;
 
 // Write the content

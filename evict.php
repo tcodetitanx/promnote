@@ -31,7 +31,6 @@
             <label for="eviction_date">Eviction Date:</label>
             <input type="date" id="eviction_date" name="eviction_date" required>
 
-            <!-- New Fields -->
             <label for="landlord_first_name">Landlord First Name:</label>
             <input type="text" id="landlord_first_name" name="landlord_first_name" required>
 
@@ -60,20 +59,19 @@
     </div>
 
     <script>
-function generateUrl() {
-    const form = document.getElementById('form');
-    const formData = new FormData(form);
-
-    // Manually encode each key-value pair to ensure correct URL encoding
-    let params = new URLSearchParams();
-    formData.forEach((value, key) => {
-        params.append(encodeURIComponent(key), encodeURIComponent(value));
     });
+    function generateUrl() {
+        const form = document.getElementById('form');
+        const formData = new FormData(form);
 
-    const url = `https://goaxiomrealty.com/tools/promnote/view_eviction.php?${params.toString()}`;
-    document.getElementById('generatedUrl').innerHTML = `<p>Generated URL: <a href="${url}" target="_blank">${url}</a></p>`;
-}
+        let params = new URLSearchParams();
+        formData.forEach((value, key) => {
+            params.append(encodeURIComponent(key), encodeURIComponent(value));
+        });
 
+        const url = `https://goaxiomrealty.com/tools/promnote/view_eviction.php?${params.toString()}`;
+        window.open(url, '_blank');
+    }
     </script>
 </body>
 </html>
