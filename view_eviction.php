@@ -6,7 +6,7 @@ $name = $_GET['name'] ?? '';
 $streetAddress = $_GET['address'] ?? '';
 $phone = $_GET['phone'] ?? '';
 
-$notice_date = $_GET['notice_date'] ?? '';
+$notice_date = $_GET['eviction_date'] ?? '';
 
 $leaseDate = $_GET['lease_date'] ?? '';
 $city = $_GET['city'] ?? '';

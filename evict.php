@@ -28,8 +28,8 @@
             <label for="phone">Recipient Phone:</label>
             <input type="text" id="phone" name="phone" required>
 
-            <label for="notice_date">Date of Notice:</label>
-            <input type="date" id="notice_date" name="notice_date" required>
+            <label for="eviction_date">Eviction Date:</label>
+            <input type="date" id="eviction_date" name="eviction_date" required>
 
             <!-- New Fields -->
             <label for="landlord_first_name">Landlord First Name:</label>
