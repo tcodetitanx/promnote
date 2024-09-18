@@ -70,6 +70,7 @@
 
         const url = `https://goaxiomrealty.com/tools/promnote/view_eviction.php?${params.toString()}`;
         document.getElementById('generatedUrl').innerHTML = `<p>Generated URL: <a href="${url}" target="_blank">${url}</a></p>`;
+    }
     </script>
 </body>
 </html>
