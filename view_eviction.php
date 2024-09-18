@@ -5,6 +5,7 @@ $issuer_phone = $_GET['issuer_phone'] ?? '';
 $name = $_GET['name'] ?? '';
 $streetAddress = $_GET['address'] ?? '';
 $phone = $_GET['phone'] ?? '';
+
 $notice_date = $_GET['notice_date'] ?? '';
 
 $leaseDate = $_GET['lease_date'] ?? '';
@@ -50,7 +51,7 @@ $completeAddress = $streetAddress . " , " . $city . " , " . $state . " , " . $zi
 <?php echo $notice_date; ?>
 Name: <?php echo $name . "<br>"; ?>
 
-Phone: <?php echo $phone . "<br>"; ?>
+Phone: <?php echo $phone . "<br>"; ?><br>
 TO THE TENANT(S) AND ANY AND ALL OTHERS IN POSSESSION OF THE PREMISES LOCATED AT TEH AFORMENTIONED ADDRESS, THIS NOTICE HAS BEEN SENT TO YOU PURSUANT TO UTAH STATE LAWS AS A RESULT OF YOUR BREACH OF THE LEASE AND/OR YOUR FAILURE TO PAY RENT, LATE FEES AND/OR OTHER ASSOCIATED COSTS ANDOR FEES.
 <strong><em>BE IT KNOWN</em></strong> that purusant to your signed Lease Agreement dated <?php echo $leaseDate; ?> and where you are in possession of the premises located at <?php echo $streetAddress . " , " . $city . " , " . $state . " , " . $zip . "<br>"; ?>
 
