@@ -46,17 +46,14 @@ $city = $_GET['city'] ?? '';
 $state = $_GET['state'] ?? '';
 $zip = $_GET['zip'] ?? '';
 $means_of_service = $_GET['means_of_service'] ?? '';
-$landlord_first_name = $_GET['landlord_first_name'] ?? '';
-$landlord_second_name = $_GET['landlord_second_name'] ?? '';
+$landlord_name = $_GET['issuer_name'] ?? '';
 
 $completeAddress = $streetAddress . ", " . $city . ", " . $state . ", " . $zip;
-$signature = "<em>" . $landlord_first_name . " " . $landlord_second_name . "</em>";
+$signature = "<em>" . $landlord_name . "</em>";
 
 // Create the content
 $content = <<<EOD
 <h1><em>Eviction Notice</em></h1>
-
-<h2>Eviction Notice</h2>
 
 <p>{$eviction_date}</p>
 <p><strong>Name:</strong> {$name}</p>
