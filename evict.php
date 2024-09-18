@@ -59,7 +59,6 @@
     </div>
 
     <script>
-    });
     function generateUrl() {
         const form = document.getElementById('form');
         const formData = new FormData(form);
@@ -70,8 +69,7 @@
         });
 
         const url = `https://goaxiomrealty.com/tools/promnote/view_eviction.php?${params.toString()}`;
-        window.open(url, '_blank');
-    }
+        document.getElementById('generatedUrl').innerHTML = `<p>Generated URL: <a href="${url}" target="_blank">${url}</a></p>`;
     </script>
 </body>
 </html>
